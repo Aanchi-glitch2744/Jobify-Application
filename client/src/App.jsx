@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
  const App = () => {
    return (
        <div>
-           Jobify App
+           <h1>Jobify App</h1>
        </div>
    )
  }
