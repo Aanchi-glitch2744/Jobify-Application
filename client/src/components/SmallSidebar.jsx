@@ -32,7 +32,7 @@ const SmallSidebar = () => {
                                 <span className='icon'>{icon}</span>
                                 {text}
                             </NavLink>)
-                        })};
+                        })}
                     </div>
                 </div>
             </div>

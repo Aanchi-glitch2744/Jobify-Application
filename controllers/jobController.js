@@ -17,7 +17,8 @@ import {StatusCodes} from 'http-status-codes';
  */
 
 export const getAllJobs = async (req, res) => {
-    const jobs = await Job.find({});
+    // console.log(req); //Find cookie here in token
+    const jobs = await Job.find({ createdBy: req.user.userId});
     //Approach 1:
     // res.status(200).json({ jobs });
     //Approach 2:
@@ -35,7 +36,8 @@ export const createJob = async (req, res) => {
     // }
 
     //Using express-async-errors :
-    const job = await Job.create({ company, position });
+    req.body.createdBy = req.user.userId;
+    const job = await Job.create(req.body);
     res.status(StatusCodes.CREATED).json({ job });
     //Errors automatically caught in server.js error middleware.
 

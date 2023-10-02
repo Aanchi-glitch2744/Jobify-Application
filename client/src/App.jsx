@@ -10,8 +10,11 @@ import {
     Stats,
     AllJobs,
     Profile,
-    Admin
+    Admin,
 } from './pages';
+import { action as registerAction } from './pages/Register.jsx';
+import { action as loginAction } from './pages/Login.jsx';
+import { loader as dashboardLoader } from './pages/DashboardLayout.jsx';
 
 export const checkDefaultTheme = () => {
     const isDarkTheme = localStorage.getItem('darkTheme') === 'true'
@@ -38,14 +41,21 @@ const routerPaths = createBrowserRouter([
                 //renamed path /register to register as it's relative to parent
                 path: 'register',
                 element: <Register />,
+                // action: () => { //actions always needs a return (value /fn /redirect /error /null/ anything)
+                //     console.log('hello there');
+                //     return null;
+                // },
+                action: registerAction
             },
             {
                 path: 'login',
                 element: <Login />,
+                action: loginAction
             },
             {
                 path: 'dashboard',
                 element: <DashboardLayout />,
+                loader: dashboardLoader,
                 children: [
                     {
                       index: true,

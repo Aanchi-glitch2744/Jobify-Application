@@ -6,10 +6,16 @@ const app = express();
 const port = process.env.PORT || 5100;
 import mongoose from "mongoose";
 import morgan from 'morgan';
-import {body, validationResult} from "express-validator";
+import cookieParser from 'cookie-parser'
+
+//routers import
 import jobRouter from './routers/jobRouter.js';
-import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 import authRouter from './routers/authRouter.js';
+import userRouter from './routers/userRouter.js';
+
+// middleware import
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+import {authenticateUser} from './middleware/authMiddleware.js';
 
 //Morgan: An HTTP request logger middleware for node.js
 if(process.env.NODE_ENV === 'development'){
@@ -17,15 +23,17 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 //Middleware setup
+app.use(cookieParser());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/api/v1/test', (req, res) => {
     res.send('Hello World');
 });
 
 //Routing
-app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/jobs', authenticateUser, jobRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', authenticateUser, userRouter);
 
 //Not Found Middleware : Route not found cases
 app.use('*', (req, res) => {
