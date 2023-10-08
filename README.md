@@ -1,7 +1,7 @@
 # Jobify-Application
 Jobify MERN Stack Application
 
-Using Render to deploy App.
+Using Render to deploy App, url: https://jobify-application-428b.onrender.com/
 
 Welcome to Jobify - Your Ultimate Job Tracking Companion!
 
